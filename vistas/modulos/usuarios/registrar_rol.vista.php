@@ -10,7 +10,7 @@
         <h1>Registar rol</h1>
         <div>
             <label for="">Nombre rol</label>
-            <input type="text" name="rol_Nombre">
+            <input type="text" name="rol_nombre">
         </div>
         <div>
             <input type="submit" value="Enviar">
