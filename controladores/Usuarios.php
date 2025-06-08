@@ -1,5 +1,5 @@
 <?php
-require_once "modelos/Usuario.php";
+    require_once "modelos/Usuario.php";
     class Usuarios {
         public function main(){
             if ($_SERVER['REQUEST_METHOD'] == 'GET') {
@@ -17,15 +17,7 @@ require_once "modelos/Usuario.php";
                 $rol->setRolNombre($_POST['rol_nombre']);
                 $rol->registrarRol();
                 header("Location: ?c=Usuarios&a=rolConsultar");
-
-                //$profile = $profile->login();
-                // if ($rol) {
-                //     header("Location:?c=PanelControl");
-                // } else {
-                //     header("Location:?c=IniciarSesion");
-                // }
             }
-
         }
 
         public function rolConsultar(){
@@ -54,6 +46,5 @@ require_once "modelos/Usuario.php";
             $rol->eliminarRol($_GET['idRol']);
             header("Location: ?c=Usuarios&a=rolConsultar");
         }
-
     }
 ?>

@@ -6,7 +6,7 @@
         <title>Panel de control</title>
     </head>
     <body>
-        <h1>Consultar roles</h1>
+        <h1>Roles</h1>
         <a href="?c=Usuarios&a=rolRegistrar">Registrar rol</a>
         <br>
         <br>

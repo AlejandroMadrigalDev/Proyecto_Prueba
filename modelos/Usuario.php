@@ -11,6 +11,7 @@
         private $UsuarioPass;
         private $UsuarioEstado;
         private $dbh;
+        
         // metodos: Sobrecarga de constructores
         public function __construct(){
             try {
