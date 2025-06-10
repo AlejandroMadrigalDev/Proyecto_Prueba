@@ -8,7 +8,11 @@
     <body>
         <h1>Bienvenido Administrador</h1>
         <a href="?c=Usuarios&a=rolConsultar">Gestionar Roles</a>
-        <!-- <h1>Gestionar Roles</h1> -->
         <br>
+        <br>
+        <a href="?c=Usuarios&a=usuarioConsultar">Gestionar Usuarios</a>
+        <br>
+        <br>
+        <a href="?">Cerrar Sesion</a>
     </body>
 </html>

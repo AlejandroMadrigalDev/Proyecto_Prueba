@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Panel de control</title>
+        <title>Panel de control de roles</title>
     </head>
     <body>
         <h1>Roles</h1>
@@ -33,5 +33,7 @@
                 <?php endforeach; ?>
             </tbody>
         </table>
+        <br>
+        <a href="?c=Usuarios&a=main">Regresar</a>
     </body>
 </html>

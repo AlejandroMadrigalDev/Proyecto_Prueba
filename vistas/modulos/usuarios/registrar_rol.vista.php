@@ -16,5 +16,8 @@
             <input type="submit" value="Enviar">
         </div>
     </form>
+    <br>
+    <br>
+    <a href="?c=Usuarios&a=rolConsultar">Regresar</a>
 </body>
 </html>

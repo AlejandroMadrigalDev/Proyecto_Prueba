@@ -46,5 +46,30 @@
             $rol->eliminarRol($_GET['idRol']);
             header("Location: ?c=Usuarios&a=rolConsultar");
         }
+
+        public function usuarioRegistrar(){
+            if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+                require_once "vistas/modulos/usuarios/registrar_usuario.vista.php";
+            }
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                $usuarioReg = new Usuario;
+                $usuarioReg->setRolCodigo($_POST['rol_codigo']);
+                $usuarioReg->setUsuarioCodigo($_POST['usuario_codigo']);
+                $usuarioReg->setUsuarioNombres($_POST['usuario_nombres']);
+                $usuarioReg->setUsuarioApellidos($_POST['usuario_apellidos']);
+                $usuarioReg->setUsuarioIdentificacion($_POST['usuario_identificador']);
+                $usuarioReg->setUsuarioEmail($_POST['usuario_email']);
+                $usuarioReg->setUsuarioPass($_POST['usuario_pass']);
+                $usuarioReg->setUsuarioEstado($_POST['usuario_estado']);
+                $usuarioReg->registrarUsuario();
+                header("Location: ?");
+            }
+        }
+
+        public function usuarioConsultar(){
+            $usuarioCon = new Usuario;
+            $usuarioCon = $usuarioCon->readUsuarios();
+            require_once "vistas/modulos/usuarios/consultar_usuarios.vista.php";
+        }
     }
 ?>

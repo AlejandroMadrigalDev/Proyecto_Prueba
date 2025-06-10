@@ -31,52 +31,51 @@
 
         //Constructor 9 parametros
         public function __construct9(
-        $rolCodigo,
-        $rolNombre,
-        $UsuarioCodigo,
-        $UsuarioNombres,
-        $UsuarioApellidos,
-        $UsuarioIdentificacion,
-        $UsuarioEmail,
-        $UsuarioPass,
-        $UsuarioEstado)
-        {
-            $this->rolCodigo = $rolCodigo;
-            $this->rolNombre = $rolNombre;
-            $this->UsuarioCodigo = $UsuarioCodigo;
-            $this->UsuarioNombres = $UsuarioNombres;
-            $this->UsuarioApellidos = $UsuarioApellidos;
-            $this->UsuarioIdentificacion = $UsuarioIdentificacion;
-            $this->UsuarioEmail = $UsuarioEmail;
-            $this->UsuarioPass = $UsuarioPass;
-            $this->UsuarioEstado = $UsuarioEstado;
+            $rolCodigo,
+            $rolNombre,
+            $UsuarioCodigo,
+            $UsuarioNombres,
+            $UsuarioApellidos,
+            $UsuarioIdentificacion,
+            $UsuarioEmail,
+            $UsuarioPass,
+            $UsuarioEstado){
+                $this->rolCodigo = $rolCodigo;
+                $this->rolNombre = $rolNombre;
+                $this->UsuarioCodigo = $UsuarioCodigo;
+                $this->UsuarioNombres = $UsuarioNombres;
+                $this->UsuarioApellidos = $UsuarioApellidos;
+                $this->UsuarioIdentificacion = $UsuarioIdentificacion;
+                $this->UsuarioEmail = $UsuarioEmail;
+                $this->UsuarioPass = $UsuarioPass;
+                $this->UsuarioEstado = $UsuarioEstado;
         }
 
         //constructor 8 parametros
         public function __construct8(
-        $rolCodigo,
-        $UsuarioCodigo,
-        $UsuarioNombres,
-        $UsuarioApellidos,
-        $UsuarioIdentificacion,
-        $UsuarioEmail,
-        $UsuarioPass,
-        $UsuarioEstado)
-        {
-            $this->rolCodigo = $rolCodigo;
-            $this->UsuarioCodigo = $UsuarioCodigo;
-            $this->UsuarioNombres = $UsuarioNombres;
-            $this->UsuarioApellidos = $UsuarioApellidos;
-            $this->UsuarioIdentificacion = $UsuarioIdentificacion;
-            $this->UsuarioEmail = $UsuarioEmail;
-            $this->UsuarioPass = $UsuarioPass;
-            $this->UsuarioEstado = $UsuarioEstado;
+            $rolCodigo,
+            $UsuarioCodigo,
+            $UsuarioNombres,
+            $UsuarioApellidos,
+            $UsuarioIdentificacion,
+            $UsuarioEmail,
+            $UsuarioPass,
+            $UsuarioEstado){
+                $this->rolCodigo = $rolCodigo;
+                $this->UsuarioCodigo = $UsuarioCodigo;
+                $this->UsuarioNombres = $UsuarioNombres;
+                $this->UsuarioApellidos = $UsuarioApellidos;
+                $this->UsuarioIdentificacion = $UsuarioIdentificacion;
+                $this->UsuarioEmail = $UsuarioEmail;
+                $this->UsuarioPass = $UsuarioPass;
+                $this->UsuarioEstado = $UsuarioEstado;
         }
 
         //constructor de 2 parametros
-        public function __construct2($UsuarioEmail, $UsuarioPass){
-            $this->UsuarioEmail = $UsuarioEmail;
-            $this->UsuarioPass = $UsuarioPass;
+        public function __construct2(
+            $UsuarioEmail, $UsuarioPass){
+                $this->UsuarioEmail = $UsuarioEmail;
+                $this->UsuarioPass = $UsuarioPass;
         }
 
         // Metodos: Setter y Getter
@@ -241,13 +240,54 @@
             }
         }
 
-        # RF08_CU08 - Eliminar Rol
+        // Eliminar Rol
         public function eliminarRol($rolCode){
             try {
                 $sql = 'DELETE FROM ROLES WHERE rol_codigo = :rolCodigo';
                 $stmt = $this->dbh->prepare($sql);
                 $stmt->bindValue('rolCodigo', $rolCode);
                 $stmt->execute();
+            } catch (Exception $e) {
+                die($e->getMessage());
+            }
+        }
+
+        public function registrarUsuario(){
+            try {
+                $sql = 'INSERT INTO USUARIOS VALUES (:rolCodigo,:UsuarioCodigo,:UsuarioNombres,:UsuarioApellidos,:UsuarioIdentificacion,:UsuarioEmail,:UsuarioPass,:UsuarioEstado)';
+                $stmt = $this->dbh->prepare($sql);
+                $stmt->bindValue('rolCodigo', $this->getRolCodigo());
+                $stmt->bindValue('UsuarioCodigo', $this->getUsuarioCodigo());
+                $stmt->bindValue('UsuarioNombres', $this->getUsuarioNombres());
+                $stmt->bindValue('UsuarioApellidos', $this->getUsuarioApellidos());
+                $stmt->bindValue('UsuarioIdentificacion', $this->getUsuarioIdentificacion());
+                $stmt->bindValue('UsuarioEmail', $this->getUsuarioEmail());
+                $stmt->bindValue('UsuarioPass', sha1($this->getUsuarioPass()));
+                $stmt->bindValue('UsuarioEstado', $this->getUsuarioEstado());
+                $stmt->execute();
+            } catch (Exception $e) {
+                die($e->getMessage());
+            }
+        }
+
+        public function readUsuarios(){
+            try {
+                $usuarioList = [];
+                $sql = 'SELECT * FROM USUARIOS';
+                $stmt = $this->dbh->query($sql);
+                foreach ($stmt->fetchAll() as $usuario) {
+                    $usuarioObj = new Usuario;
+                    $usuarioObj->setRolCodigo($usuario['rol_codigo']);
+                    $usuarioObj->setUsuarioCodigo($usuario['usuario_codigo']);
+                    $usuarioObj->setUsuarioNombres($usuario['usuario_nombres']);
+                    $usuarioObj->setUsuarioApellidos($usuario['usuario_apellidos']);
+                    $usuarioObj->setUsuarioIdentificacion($usuario['usuario_identificador']);
+                    $usuarioObj->setUsuarioEmail($usuario['usuario_email']);
+                    $usuarioObj->setUsuarioPass($usuario['usuario_pass']);
+                    $usuarioObj->setUsuarioEstado($usuario['usuario_estado']);
+                    array_push($usuarioList, $usuarioObj);
+                }
+                return $usuarioList;
             } catch (Exception $e) {
                 die($e->getMessage());
             }
