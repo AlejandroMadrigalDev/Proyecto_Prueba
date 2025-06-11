@@ -71,5 +71,32 @@
             $usuarioCon = $usuarioCon->readUsuarios();
             require_once "vistas/modulos/usuarios/consultar_usuarios.vista.php";
         }
+
+        public function usuarioActualizar(){
+            if ($_SERVER['REQUEST_METHOD']  == 'GET') {
+                $usuarioId = new Usuario;
+                $usuarioId = $usuarioId->getUsuarioById($_GET['idUsuario']);
+                require_once "vistas/modulos/usuarios/actualizar_usuario.vista.php";
+            }
+            if ($_SERVER['REQUEST_METHOD']  == 'POST') {
+                $usuarioAct = new Usuario;
+                $usuarioAct->setUsuarioCodigo($_POST['usuario_codigo']);
+                $usuarioAct->setRolCodigo($_POST['rol_codigo']);
+                $usuarioAct->setUsuarioNombres($_POST['usuario_nombres']);
+                $usuarioAct->setUsuarioApellidos($_POST['usuario_apellidos']);
+                $usuarioAct->setUsuarioIdentificacion($_POST['usuario_identificador']);
+                $usuarioAct->setUsuarioEmail($_POST['usuario_email']);
+                $usuarioAct->setUsuarioPass($_POST['usuario_pass']);
+                $usuarioAct->setUsuarioEstado($_POST['usuario_estado']);
+                $usuarioAct->actualizarUsuario();
+                header("Location: ?c=Usuarios&a=usuarioConsultar");
+            }
+        }
+
+        public function usuarioEliminar() {
+            $usuario = new Usuario;
+            $usuario->eliminarUsuario($_GET['idUsuario']);
+            header("Location: ?c=Usuarios&a=usuarioConsultar");
+        }
     }
 ?>

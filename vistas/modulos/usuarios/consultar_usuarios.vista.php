@@ -18,7 +18,7 @@
                     <th>Email</th>
                     <th>Constraseña</th>
                     <th>Estado</th>
-                    <!-- <th>Acciones</th>                 -->
+                    <th>Acciones</th>                
                 </tr>
             </thead>
             <tbody>
@@ -32,12 +32,12 @@
                         <td><?php echo $usuario->getUsuarioEmail(); ?></td>
                         <td><?php echo $usuario->getUsuarioPass(); ?></td>
                         <td><?php echo $usuario->getUsuarioEstado(); ?></td>
-                        <!-- <td>
-                            <a href="?c=Usuarios&a=rolActualizar&idRol=<?php echo $rol->getRolCodigo(); ?>">Actualizar</a>
+                        <td>
+                            <a href="?c=Usuarios&a=usuarioActualizar&idUsuario=<?php echo $usuario->getUsuarioCodigo(); ?>">Actualizar</a>
                         </td>
                         <td>
-                            <a href="?c=Usuarios&a=rolEliminar&idRol=<?php echo $rol->getRolCodigo(); ?>">Eliminar </a>
-                        </td> -->
+                            <a href="?c=Usuarios&a=usuarioEliminar&idUsuario=<?php echo $usuario->getUsuarioCodigo(); ?>">Eliminar</a>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
