@@ -12,9 +12,24 @@
                 );
                 $profile = $profile->login();
                 if ($profile) {
-                    header("Location:?c=PanelControl");
+                    $activo = $profile->getUsuarioEstado();
+                    if ($activo != 0){
+                        $sesion = $profile->getRolCodigo();
+                        if ($sesion == 1) {
+                            $_SESSION['sesion'] = 'admin';
+                        } elseif ($sesion == 2) {
+                            $_SESSION['sesion'] = 'customer';
+                        } elseif ($sesion == 3) {
+                            $_SESSION['sesion'] = 'seller';
+                        }
+                        header("Location:?c=PanelControl");
+                    } else {
+                        require_once "vistas/empresa/iniciar_sesion.vista.php";
+                        echo "El usuario existe pero esta INACTIVO";
+                    }
                 } else {
-                    header("Location:?c=IniciarSesion");
+                    require_once "vistas/empresa/iniciar_sesion.vista.php";
+                    echo "EL USUARIO NO EXISTE";
                 }
             }
         }    

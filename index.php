@@ -1,4 +1,5 @@
 <?php
+    session_start();
     require_once "modelos/Database.php";
     $prueba_conn = DataBase::connection();
     if (!isset($_REQUEST['c'])) {
