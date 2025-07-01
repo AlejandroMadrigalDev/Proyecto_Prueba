@@ -3,8 +3,13 @@
     class IniciarSesion {
         public function main(){
             if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-                require_once "vistas/empresa/iniciar_sesion.vista.php";
+                if (empty($_SESSION['sesion'])) {
+                    require_once "vistas/empresa/iniciar_sesion.vista.php";
+                } else {
+                    header('Location: ?c=PanelControl');
+                }
             }
+
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $profile = new Usuario(
                     $_POST['usuario_email'],
